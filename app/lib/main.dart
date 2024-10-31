@@ -4,12 +4,10 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -32,6 +30,7 @@ class _GraphFormState extends State<GraphForm> {
   final _formKey = GlobalKey<FormState>();
   final _xController = TextEditingController();
   final _yController = TextEditingController();
+  String? _imageUrl;
 
   Future<void> _submitData() async {
     final xValues = _xController.text.split(',').map((e) => double.parse(e.trim())).toList();
@@ -50,6 +49,9 @@ class _GraphFormState extends State<GraphForm> {
     );
 
     if (response.statusCode == 200) {
+      setState(() {
+        _imageUrl = 'http://127.0.0.1:5000/plot';
+      });
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Graph plotted successfully!')));
     } else {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Failed to plot graph.')));
@@ -95,6 +97,10 @@ class _GraphFormState extends State<GraphForm> {
               },
               child: const Text('Plot Graph'),
             ),
+            const SizedBox(height: 20),
+            _imageUrl != null
+                ? Image.network(_imageUrl!)
+                : const Text('No graph to display'),
           ],
         ),
       ),

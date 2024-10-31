@@ -1,7 +1,7 @@
-# server.py
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_file
 import numpy as np
-from charting import plot_graph
+from grapher import plot_graph
+import os
 
 app = Flask(__name__)
 
@@ -15,7 +15,9 @@ def plot():
     ylabel = data.get('ylabel', 'Y-axis')
     
     plot_graph(x_values, y_values, title, xlabel, ylabel)
-    return jsonify({"message": "Graph plotted successfully!"})
+    
+    # Return the graph image
+    return send_file('graph.png', mimetype='image/png')
 
 if __name__ == "__main__":
     app.run(debug=True)
