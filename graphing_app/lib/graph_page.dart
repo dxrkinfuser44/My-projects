@@ -3,31 +3,14 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:fl_chart/fl_chart.dart';
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Graphing App',
-      theme: ThemeData(primarySwatch: Colors.blue),
-      home: GraphPage(),
-    );
-  }
-}
-
 class GraphPage extends StatefulWidget {
   const GraphPage({super.key});
 
   @override
-  GraphPageState createState() => GraphPageState();
+  _GraphPageState createState() => _GraphPageState();
 }
 
-class GraphPageState extends State<GraphPage> {
+class _GraphPageState extends State<GraphPage> {
   List<FlSpot> dataPoints = [];
   final TextEditingController xController = TextEditingController();
   final TextEditingController yController = TextEditingController();
